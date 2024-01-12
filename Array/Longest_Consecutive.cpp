@@ -6,27 +6,27 @@ class Solution
 public:
     int largeConsecutive(vector<int> &nums)
     {
-        set<int> s;
-        for (int n : nums)
-        {
-            s.insert(n);
+        int n=nums.size();
+        if(n==0)
+            return 0;
+
+        int longest=1;
+        unordered_set<int> st;
+        for(int i=0; i<n; i++){
+            st.insert(nums[i]);
         }
-        int ans = 0;
-        for (int n : nums)
-        {
-            if (!s.count(n - 1))
-            {
-                int i = n;
-                int currAns = 1;
-                while (s.count(i + 1))
-                {
-                    i += 1;
-                    currAns += 1;
+        for(auto it:st){
+            if(st.find(it-1)==st.end()){
+                int cnt=1;
+                int x=it;
+                while(st.find(x+1)!=st.end()){
+                    x++;
+                    cnt++;
                 }
-                ans = max(ans, currAns);
+                longest=max(longest,cnt);
             }
         }
-        return ans;
+        return longest;
     }
 };
 
